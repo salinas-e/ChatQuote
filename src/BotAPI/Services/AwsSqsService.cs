@@ -17,7 +17,7 @@ namespace BotAPI.Services
 {
     public interface IAwsSqsService
     {
-        Task<HttpStatusCode> SendMessage(StockQuoteResponse stockQuote);
+        Task<HttpStatusCode> SendMessage(StockQuoteResponse? stockQuote);
     }
 
     public class AwsSqsService : IAwsSqsService
@@ -28,8 +28,11 @@ namespace BotAPI.Services
             _awsSettings = awsCredentialsSettings;
         }
 
-        public async Task<HttpStatusCode> SendMessage(StockQuoteResponse stockQuote)
+        public async Task<HttpStatusCode> SendMessage(StockQuoteResponse? stockQuote)
         {
+            if (stockQuote == null)
+                return HttpStatusCode.NotAcceptable;
+
             string messageBody = JsonSerializer.Serialize(stockQuote);
 
             IAmazonSQS client = new AmazonSQSClient(_awsSettings.AccesKey, _awsSettings.SecretAccessKey, RegionEndpoint.USEast1);
