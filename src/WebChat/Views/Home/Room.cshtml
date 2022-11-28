@@ -1,0 +1,55 @@
+﻿@using Domain.Chat.SeedWork.Enums;
+@model WebChat.ViewModels.SelectedRoomViewModel
+
+    <h1>@Model.ChatRoom.Name</h1>
+
+    <div class="row">
+        <div class="col-12">
+            <input type="text" placeholder="user" id="user" />
+            <input type="text" placeholder="text" id="message" />
+            <button id="btnSend">Send</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div id="messages">
+
+            </div>
+        </div>
+        <div class="col-6">
+            <div id="notifications">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        let connection = new signalR.HubConnectionBuilder()
+                                .withUrl("@Model.ChatUrl")
+                                .build();
+
+        connection.start().then(() => {
+            connection.invoke("JoinChatRoom", "@Model.ChatRoom.Name");
+        }).catch((e) => console.log(e));
+
+        document.getElementById("btnSend").addEventListener("click", (event) => {
+            const room = "@Model.ChatRoom.Name";
+            const user = document.getElementById("user").value;
+            const message = document.getElementById("message").value;
+
+            connection.invoke("@HubMethodNames.SendMessage", room, user, message);
+
+            document.getElementById("message").value = "";
+            document.getElementById("message").focus();
+
+            event.preventDefault();
+        });
+
+        connection.on("ReceivedMessage", (user, message) => {
+            const messageReceived = "<div><b>" + user + ":" + message + '</div>';
+
+            document.getElementById("messages").innerHTML = messageReceived + document.getElementById("messages").innerHTML;
+        });
+    </script>

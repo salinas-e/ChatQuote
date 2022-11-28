@@ -1,0 +1,17 @@
+﻿@model WebChat.ViewModels.ChatRoomsViewModel;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <h2>Rooms</h2>
+        <ul class="list-group">
+            @foreach (var room in Model.ChatRooms)
+            {
+                <li class="list-group-item"><a href="~/home/room?roomId=@room.Id">@room.Name</a></li>
+            }
+        </ul>
+    </div>
+</div>
