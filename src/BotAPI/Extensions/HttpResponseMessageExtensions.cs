@@ -8,9 +8,9 @@ namespace BotAPI.Extensions
 {
     public static class HttpResponseMessageExtensions
     {
-        public static T ParseCsvResponseToObject<T>(this HttpResponseMessage httpResponseMessage)
+        public static T? ParseCsvResponseToObject<T>(this HttpResponseMessage httpResponseMessage)
         {
-            T mappedObject;
+            T? mappedObject;
 
             var contentStream = httpResponseMessage.Content.ReadAsStream();
 
@@ -25,9 +25,19 @@ namespace BotAPI.Extensions
                 var csv = csvReader.GetRecords<T>();
 
                 if (csv == null)
-                    mappedObject = (T)new object();
+                    mappedObject = default;
                 else
-                    mappedObject = csv.FirstOrDefault()!;
+                {
+                    try
+                    {
+                        mappedObject = csv.FirstOrDefault()!;
+                    }
+                    catch (Exception)
+                    {
+
+                        mappedObject = default;
+                    }
+                }
             }
 
             return mappedObject;

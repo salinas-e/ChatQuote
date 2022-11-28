@@ -1,6 +1,6 @@
 ﻿namespace BotAPI.ResponseModel
 {
-    internal class StockQuoteResponse
+    public class StockQuoteResponse
     {
         public string Symbol { get; set; }
         public DateOnly Date { get; set; }
