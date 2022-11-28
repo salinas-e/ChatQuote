@@ -1,8 +1,14 @@
 using BotAPI.Extensions;
+using BotAPI.Models;
 using BotAPI.ResponseModel;
+using BotAPI.Services;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Formats.Asn1;
 using System.Globalization;
 using static System.Net.WebRequestMethods;
@@ -15,6 +21,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(hc => new HttpClient { BaseAddress = new Uri("https://stooq.com/") });
 
+var awsCredentialsSettings = new AwsCredentialsSettings();
+
+builder.Configuration.GetSection("AwsCredentials").Bind(awsCredentialsSettings);
+builder.Services.AddScoped<IAwsSqsService>(hc => new AwsSqsService(awsCredentialsSettings));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,12 +37,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/stockquote/{stock_code}",async (string stock_code,HttpClient httpClient) =>
+app.MapGet("/stockquote/{stock_code}",async (string stock_code, HttpClient httpClient, IAwsSqsService awsSqsService) =>
 {
     var req = new HttpRequestMessage(HttpMethod.Get, $"/q/l?s={stock_code}&f=sd2t2ohlcv&h&e=csv");
 
@@ -39,7 +45,9 @@ app.MapGet("/stockquote/{stock_code}",async (string stock_code,HttpClient httpCl
 
     response.EnsureSuccessStatusCode();
 
-    return response.ParseCsvResponseToObject<StockQuoteResponse>();
+    var stockQuote = response.ParseCsvResponseToObject<StockQuoteResponse>();
+
+    return await awsSqsService.SendMessage(stockQuote);
 })
 .WithName("GetStockQuote")
 .WithOpenApi();
