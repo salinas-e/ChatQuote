@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Domain.Chat.Models;
+using Infrastructure.Hubs;
 
 namespace Infrastructure.Extensions
 {

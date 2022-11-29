@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebChat", "src\WebChat\WebChat.csproj", "{F6FBFC32-F58F-4983-83AA-2D2BF3717AB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotAPI", "src\BotAPI\BotAPI.csproj", "{4F3D6CEB-9DE5-4237-96D7-A2127DF73314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotAPI", "src\BotAPI\BotAPI.csproj", "{4F3D6CEB-9DE5-4237-96D7-A2127DF73314}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
