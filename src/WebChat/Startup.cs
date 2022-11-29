@@ -1,5 +1,7 @@
+using Domain.Chat.Interfaces;
 using Domain.Chat.Models;
 using Infrastructure.Extensions;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,9 @@ namespace WebChat
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddChatService(Configuration);
+            services.AddScoped<IBotChatRepository>(hc => 
+                    new BotChatRepository("/stockquote", 
+                    new System.Net.Http.HttpClient { BaseAddress = new Uri("https://localhost:7058/") }));
 
             services.AddControllersWithViews();
             

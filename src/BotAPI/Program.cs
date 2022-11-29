@@ -4,6 +4,7 @@ using BotAPI.ResponseModel;
 using BotAPI.Services;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Domain.Chat.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -37,9 +38,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/stockquote/{stock_code}",async (string stock_code, HttpClient httpClient, IAwsSqsService awsSqsService) =>
+app.MapPost("/stockquote",async (BotMessage botMessage, HttpClient httpClient, IAwsSqsService awsSqsService) =>
 {
-    var req = new HttpRequestMessage(HttpMethod.Get, $"/q/l?s={stock_code}&f=sd2t2ohlcv&h&e=csv");
+    var req = new HttpRequestMessage(HttpMethod.Get, $"/q/l?s={botMessage.Code}&f=sd2t2ohlcv&h&e=csv");
 
     var response = await httpClient.SendAsync(req);
 

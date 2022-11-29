@@ -2,7 +2,7 @@
 {
     public enum HubMethodNames
     {
-        JoinGroup,
+        JoinChatGroup,
         SendMessage,
     }
 }

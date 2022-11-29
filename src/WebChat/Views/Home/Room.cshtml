@@ -31,15 +31,17 @@
                                 .build();
 
         connection.start().then(() => {
-            connection.invoke("JoinChatRoom", "@Model.ChatRoom.Name");
+        connection.invoke("JoinChatRoom", "@Model.ChatRoom.Name");
+        console.log(connection);
         }).catch((e) => console.log(e));
 
         document.getElementById("btnSend").addEventListener("click", (event) => {
+        const connectionId = connection.connectionId;
             const room = "@Model.ChatRoom.Name";
             const user = document.getElementById("user").value;
             const message = document.getElementById("message").value;
 
-            connection.invoke("@HubMethodNames.SendMessage", room, user, message);
+            connection.invoke("@HubMethodNames.SendMessage", room, user, connectionId, message);
 
             document.getElementById("message").value = "";
             document.getElementById("message").focus();
