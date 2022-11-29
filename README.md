@@ -1,6 +1,6 @@
 # Chat 
 
-This is a simple chat that with this command "stock=stock_code" consume an API that returns a csv file which is parsed and then sent to an AWS SQS Queue.
+This is a simple chat app that with this command "stock=stock_code" consumes an API that returns a csv file which is parsed and then sent to an AWS SQS Queue.
 
 ## Solution structure
 The intention of this arquitecture is to be the closest of DDD. 
