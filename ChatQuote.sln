@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebChat", "src\WebChat\WebC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotAPI", "src\BotAPI\BotAPI.csproj", "{4F3D6CEB-9DE5-4237-96D7-A2127DF73314}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tests", "Infrastructure.Tests\Infrastructure.Tests.csproj", "{14EBE3EB-B059-45C7-9817-4BCCF2141B25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4F3D6CEB-9DE5-4237-96D7-A2127DF73314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F3D6CEB-9DE5-4237-96D7-A2127DF73314}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F3D6CEB-9DE5-4237-96D7-A2127DF73314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14EBE3EB-B059-45C7-9817-4BCCF2141B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14EBE3EB-B059-45C7-9817-4BCCF2141B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14EBE3EB-B059-45C7-9817-4BCCF2141B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14EBE3EB-B059-45C7-9817-4BCCF2141B25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
