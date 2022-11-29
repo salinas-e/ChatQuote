@@ -32,7 +32,6 @@
 
         connection.start().then(() => {
         connection.invoke("JoinChatRoom", "@Model.ChatRoom.Name");
-        console.log(connection);
         }).catch((e) => console.log(e));
 
         document.getElementById("btnSend").addEventListener("click", (event) => {
