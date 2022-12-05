@@ -24,8 +24,4 @@ Since there is not an installer yet to run the application we need to id manuall
 ## Considerations
 
 I have created an AWS SQS queue to receive the csv parsed values but I haven't created the consumer yet to send the requested test(e.g.:“APPL.US quote is $93.42 per share”) so in order to see the message in the queue you can create your own queue in AWS and modify the appsettings.json file with your own access keys, queue url, etc.
-I tried to finish everything but the time invested has not been enough since this is the first time I've used SignalR.
 
-If there is an issue to run the applications please let me know.
-
-Thanks!
